@@ -1,0 +1,58 @@
+// Mixin
+@mixin banner{
+    width: 100%;
+    position: relative;
+    color: white;
+    img{
+        width: 100%;
+    }
+    .banner-content{
+        position: absolute;
+        top: 50px;
+        width: 100%
+    }
+    span{
+        font-size: $bannerHeading;
+        display: block;
+        text-transform: uppercase;
+        font-weight: bold;
+        @include media_query(3000px, 1000px) {
+            font-size: 68px;
+        }
+    }
+    span.title{
+        font-weight: normal;
+        margin-bottom: 30px;
+    }
+}
+
+@mixin clearFix{
+    &:after{
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+@mixin grid($cols, $mgn){
+    float: left;
+    margin-right: $mgn;
+    margin-bottom: $mgn;
+    width: ((100% - (($cols - 1) * $mgn)) / $cols);
+    &:nth-child(#{$cols}n){
+        margin-right: 0;
+    }
+}
+
+@mixin media_query($args...) {
+    @if length($args) == 1 {
+        @media screen and (max-width: $args) {
+            @content;
+        }
+    }
+    @if length($args) == 2 {
+        @media screen and (max-width: nth($args, 1) ) and (min-width: nth($args, 2) ) {
+            @content;
+        }
+    }
+}
